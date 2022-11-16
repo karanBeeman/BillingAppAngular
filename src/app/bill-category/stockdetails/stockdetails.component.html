@@ -1,0 +1,58 @@
+<div class="stockDetails">
+  <div class="addStock">
+    <div>
+      <pre class="heading">Stock Details</pre>
+    </div>
+    <mat-icon  class="add-Row" matTooltip="Add new stock" (click)="addNewRow()">add_circle</mat-icon>
+</div>
+  <form (ngSubmit)="updateStock()" [formGroup]="stockForm" autocomplete="off" id="stockForm">
+    <ng-container formArrayName="stockDetails">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="productName">
+                <th mat-header-cell *matHeaderCellDef> ProductName </th>
+                <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
+                  <mat-form-field style="width: 40%;" [ngClass]="stockForm.get('stockDetails')?.value[i].isEditable ? 'with-edit': 'without-Edit'">
+                    <input matInput  type="text" [readonly]="!stockForm.get('stockDetails')?.value[i].isEditable" formControlName="productName">
+                  </mat-form-field>
+              </ng-container>
+              <ng-container matColumnDef="stock">
+                <th mat-header-cell *matHeaderCellDef> stock </th>
+                <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
+                  <mat-form-field style="width: 40%;" [ngClass]="stockForm.get('stockDetails')?.value[i].isEditable ? 'with-edit': 'without-Edit'">
+                    <input matInput type="text" [readonly]="!stockForm.get('stockDetails')?.value[i].isEditable" formControlName="stock">
+                  </mat-form-field>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>          
+               <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                <button mat-icon-button class="material-icons app-toolbar-menu save-button" 
+                                    *ngIf="stockForm.get('stockDetails')?.value[i].isEditable" color="primary"
+                                    (click)="includeProductToList(stockForm, i)">
+                                    <mat-icon>check_circle</mat-icon>
+                                </button>
+             <button mat-icon-button class="material-icons app-toolbar-menu cancel-button"
+                                color="warn" (click)="cancelEdit(stockForm, i)"
+                               
+                               *ngIf="stockForm.get('stockDetails')?.value[i].isEditable">
+                               <mat-icon>cancel</mat-icon>
+            </button>       
+                <button mat-icon-button class="material-icons app-toolbar-menu save-button" *ngIf="!stockForm.get('stockDetails')?.value[i].isEditable" color="primary">
+                            <mat-icon (click)="onEdit(stockForm, i)">edit</mat-icon>
+                 </button> 
+                 <button mat-icon-button class="material-icons app-toolbar-menu delete-button"
+                 *ngIf="!stockForm.get('stockDetails')?.value[i].isEditable"
+                                          color="warn">
+                                         <mat-icon>delete</mat-icon>
+                    </button>
+                 </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </ng-container>
+ </form>
+ <div class="updatestock">
+  <button mat-raised-button style="float: right;" color="primary" form="stockForm"> update stock </button>
+ </div>
+</div>

@@ -1,0 +1,137 @@
+<div class="container">
+
+  <nav>
+    <h2 class="invoiceheader">Invoice</h2>
+  </nav>
+  <div class="fromDetails">
+    <h1>SR FOODS</h1>
+    <p>225 j/10 arokiyamadha street kanmaikari, arapalyam, maduari-625016</p>
+    <p><b>GST NO:</b> 12ADR34I14i2jklajsdf</p>
+    <p><b>Phone no: </b> 8489127214</p>
+  </div>
+  <div class="fromDetails_Date">
+    <div>
+      <label><b>Invoice No:</b></label>
+      {{1}}
+    </div>
+    <br>
+    <div>
+      <form [formGroup]="dateDetails">
+        <label><b>Date : </b></label>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </form>
+      
+    </div>
+  </div>
+  <div class="ToDetails">
+    <form [formGroup]="hotelDetails">
+      <!-- <label><b>Hotel/Restaurant : </b></label> -->
+      <mat-form-field>
+        <mat-label>customer Name : </mat-label>
+        <mat-select (selectionChange)="onHotelChange($event)" formControlName="details">
+          <mat-option *ngFor="let hotels of hotelDetailsObject" [value]="hotels">
+            {{hotels.hotelName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>  
+    </form>
+    <p>
+      <label><b>GST NO: </b></label>
+      {{hotelGST}}
+    </p>
+  </div>
+  <div class="ToDetails_Date">
+    <p><b>Address :</b> {{hotelAddress}}</p>
+    <p><b>Phone No:</b> {{hotelNumber}}</p>
+
+  </div>
+  <div class="table">
+    <div class="mat-elevation-z8">
+      <form (ngSubmit)="onSubmit()" [formGroup]="productForm" id="productForm" autocomplete="off">
+        <ng-container formArrayName="productDetails">
+          <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="Product">
+              <th mat-header-cell *matHeaderCellDef> Product </th>
+              <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
+                <mat-form-field class="without-Edit">
+                  <input matInput type="text" formControlName="productName">
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="qty">
+              <th mat-header-cell *matHeaderCellDef> qty </th>
+              <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
+                <mat-form-field style="width: 50px;">
+                  <input matInput type="text" formControlName="quantity" (change)="quantityUpdate(productForm, i)">
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> price </th>
+              <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
+                <mat-form-field style="width: 50px;">
+                  <input matInput type="text" formControlName="price" (change)="onPriceChange(productForm, i)">
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef> amount </th>
+              <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
+                <mat-form-field style="width: 50px;" class="without-Edit">
+                  <input matInput type="text" formControlName="amount">
+
+                </mat-form-field>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef> Action </th> 
+             <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+               <button mat-icon-button class="material-icons app-toolbar-menu delete-button"
+                                        color="warn" (click)="removeRow(productForm, i)">
+                                       <mat-icon>delete</mat-icon>
+                                   </button>
+             </td>
+           </ng-container>
+            <!-- <ng-container matColumnDef="TotalAmount">
+            <th mat-header-cell *matHeaderCellDef>Total Amount </th>
+          </ng-container> -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </ng-container>
+       
+      </form>
+      <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons 
+                     aria-label="Select page of periodic elements">
+      </mat-paginator> -->
+      <div class="footer">
+        <div class="totalAmount">
+          <div>
+          <label><b>Total Amount</b></label><br>
+          <button class="submitButton" mat-raised-button form="productForm" color="primary">Submit</button>
+        </div>
+          <div>
+          <label>Rs :</label>
+          {{this.totalamount}}
+        </div>
+       
+        </div>
+        <div class="paginator">
+          <mat-paginator [pageSizeOptions]="[3, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

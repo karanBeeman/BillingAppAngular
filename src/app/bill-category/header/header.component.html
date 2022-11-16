@@ -1,0 +1,32 @@
+<div>
+<nav class="navbar navbar-expand-sm headerHover"> 
+    <div class="container-fluid">
+        <button mat-icon-button *ngIf="deviceXs">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        <a class="navbar-brand" routerLink="/invoice" style="color:rgb(255, 60, 0);"><b>SR FOODS</b></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse loginRegister" id="navbar1">
+            <ul class="navbar-nav me-auto" ></ul>
+             
+           
+                <div class="example-button-row">
+             <button mat-raised-button routerLink="login" color="primary">logout</button>
+            
+          </div>
+           
+        </div>
+        </div>
+</nav>
+ <nav mat-tab-nav-bar>
+    <a mat-tab-link routerLink="pendingbills"> <b>pending bills</b> </a>
+    <a mat-tab-link routerLink="todaybill"> <b>today bills</b></a>
+    <a mat-tab-link routerLink="stockdetails"> <b>stock Details</b></a>
+    <a mat-tab-link routerLink="todaybill"> <b>colsed bills</b></a>
+    <a mat-tab-link routerLink="todaybill"> <b>purchase bills</b></a>
+    <a mat-tab-link routerLink="todaybill"> <b>customer/datewise bills</b></a>
+    <a mat-tab-link routerLink="newcustomer"><b>Add New Customer</b></a>
+    </nav>
+</div>

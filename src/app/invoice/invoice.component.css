@@ -1,0 +1,89 @@
+/* flex1{
+    max-width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+flex1{
+    max-width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
+.cmpnt-container {
+    /* background-color: rgb(226, 230, 232); */
+    display: grid;
+    /* grid-template-rows: 1fr auto; */
+    grid-template-columns: 1fr 2fr;
+    gap: 7px;
+    margin-left:1em;
+    margin-right: 1em;
+    /* justify-content: space-around;
+    align-items: center; */
+}
+
+@media only screen and (max-width: 900px) {
+    .cmpnt-container {
+      display: grid;
+      grid-template-columns: 2fr;
+      grid-template-rows: 1fr;
+      padding-top: 8px;
+    }
+   
+}
+
+@media only screen and (min-width: 900px) {
+    .firstRow {
+        grid-column: 1/3;
+    }
+}
+
+.invoiceBills {
+    border-radius: 10px;
+    background-color: white;
+}
+
+
+
+.leftColumn {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-gap: 10px;
+}
+
+.topRow, .bottomRow {
+    background-color: white;
+    border-radius:  10px;
+}
+
+nav {
+    background-color: white;
+    margin-top: 1px;
+    border-radius: 5px;
+}
+
+.sideNavDesign {
+    width: 250px;
+}
+
+.mat-drawer-container {
+    background-color: lightgray;
+}
+
+mat-sidenav-container {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    position: absolute;
+}
+
+ /* .leftColumn {
+   background: #7750C9;
+}
+.rigthColumn {
+    background: #9a79e2;
+}  */

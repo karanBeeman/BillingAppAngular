@@ -1,0 +1,57 @@
+.stockDetails {
+    margin-top: 2em;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+@media only screen and (min-width: 900px) {
+    .stockDetails {
+        margin-top: 2em;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+  }
+
+form {
+   display: inline-block;
+   align-items: center;
+    width: 50%;
+}
+
+.mat-table {
+    width: 80%;
+}
+
+
+::ng-deep .without-Edit .mat-form-field-underline {
+    display: none;
+}
+
+::ng-deep .with-Edit .mat-form-field-underline{
+    display: legacy;
+}  
+
+.addStock {
+    display: inline-block;
+    align-items: flex-start;
+   width: 50%;
+}
+
+.updatestock {
+    margin-top: 5px;
+    width: 30%;
+}
+
+.heading {
+    font-size: larger;
+    font-weight: bold;
+    margin-bottom: 2em;
+    text-align: center;
+  }
+    
+

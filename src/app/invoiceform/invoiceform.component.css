@@ -1,0 +1,81 @@
+
+
+table {
+    width: 100%;
+    max-height: 20px;
+    overflow: hidden;
+    
+}
+
+::ng-deep .without-Edit .mat-form-field-underline {
+    display: none;
+  }
+ 
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto auto auto;
+    gap: 0.5rem;
+    
+}  
+
+@media only screen and (max-width: 900px) {
+    .container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-template-rows: auto auto auto auto;
+      gap: 0.2rem;
+      
+    }
+ 
+}
+
+.fromDetails  {
+    grid-column: 1/3;
+    padding-left: 1em;
+    border-radius: 10px;
+    
+}
+
+.ToDetails {
+    grid-column: 1/3;
+    padding-left: 1em;
+    border-radius: 10px;
+
+}
+.fromDetails_Date, .ToDetails_Date {
+    
+    padding: 1em;
+    border-radius: 10px;
+}
+
+.ToDetails, .fromDetails, .ToDetails_Date, .fromDetails_Date, nav {
+    background: #b9a8e0;
+}
+
+nav {
+    grid-column: 1 / 4;
+    padding-left: 1em;
+    border-radius: 10px;
+    margin-top: 1em;
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.paginator {
+    background-color: transparent;
+    grid-column: 2/4;
+}
+
+.table {
+    grid-column: 1 / 4;
+}
+
+.submitButton {
+   justify-content: start;
+    float: right;
+    
+}

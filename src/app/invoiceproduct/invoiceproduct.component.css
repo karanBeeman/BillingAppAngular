@@ -1,0 +1,29 @@
+
+
+table {
+    width: 100%;
+}
+
+tr:hover {
+    background-color: lightblue;
+}
+
+.product {
+    cursor: pointer;
+}
+
+.mat-elevation-z8 {
+    /* border-radius: 5px; */
+    width: 100%;
+    /* margin: 0.5em; */
+    /* display: inline; */
+    
+}
+
+/* .paginator {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: transparent;
+    color: black;
+  } */

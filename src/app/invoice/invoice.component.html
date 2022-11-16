@@ -1,0 +1,56 @@
+
+<!-- <ng-template #matSideNavContainer> -->
+    <mat-sidenav-container class='app-drawer-container'>
+        <mat-sidenav #sidenav mode="over" class="sideNavDesign">
+          <app-links></app-links>
+        </mat-sidenav>
+        <mat-sidenav-content >
+            <div class=" cmpnt-container">
+                <div class="firstRow">
+                    <nav class="navbar navbar-expand-sm headerHover"> 
+                        <div class="container-fluid">
+                            <button mat-icon-button (click)="sidenav.toggle()" [class.active]="toggleActive" *ngIf="deviceXs">
+                                <mat-icon>more_vert</mat-icon>
+                              </button>
+                            <a class="navbar-brand" routerLink="" style="color:rgb(255, 60, 0);">SR FOODS</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse loginRegister" id="navbar1">
+                                <ul class="navbar-nav me-auto" ></ul>
+                                 
+                               
+                                    <div class="example-button-row">
+                                 <button mat-raised-button routerLink="login">login</button>
+                                 <button mat-raised-button  routerLink="register">register </button>
+                              </div>
+                               
+                            </div>
+                            </div>
+            
+                    </nav>
+                </div>
+                    <div class="productStock">
+                        <div class="leftColumn">
+                            <div calss="topRow">
+                            <app-invoiceproduct (productObj)="product = $event"></app-invoiceproduct>
+                        </div>
+                        <div class="bottomRow" *ngIf="!deviceXs">
+                            <app-links></app-links>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="invoiceBills">
+                         <div class="rigthColumn">
+                            <app-invoiceform [recievedProduct] = "product"></app-invoiceform>
+                        </div>
+                    </div>
+            </div>
+            
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    
+<!-- </ng-template> -->
+
+  
+  
