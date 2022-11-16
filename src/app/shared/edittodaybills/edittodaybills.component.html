@@ -14,8 +14,8 @@
                   </mat-form-field>
                   <mat-form-field *ngIf="productForm.get('productDetails')?.value[i].isEditable" class="on-Edit">
                     <mat-select formControlName="productName">
-                      <mat-option *ngFor="let hotels of productList" [value]="hotels">
-                        {{hotels}}
+                      <mat-option *ngFor="let productNames of productList" [value]="productNames">
+                        {{productNames}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -25,7 +25,10 @@
                 <th mat-header-cell *matHeaderCellDef> qty </th>
                 <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
                   <mat-form-field [ngClass]="productForm.get('productDetails')?.value[i].isEditable ? 'on-Edit': 'without-Edit'">
-                    <input matInput type="text" formControlName="quantity" [readonly]="!productForm.get('productDetails')?.value[i].isEditable">
+                    <input matInput type="text" formControlName="quantity"
+                     [readonly]="!productForm.get('productDetails')?.value[i].isEditable" 
+                    
+                    (click)="quantityUpdate($event, productForm);$event.stopPropagation()">
                   </mat-form-field>
                 </td>
               </ng-container>
@@ -33,7 +36,9 @@
                 <th mat-header-cell *matHeaderCellDef> price </th>
                 <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
                   <mat-form-field [ngClass]="productForm.get('productDetails')?.value[i].isEditable ? 'on-Edit': 'without-Edit'">
-                    <input matInput type="text" formControlName="price" [readonly]="!productForm.get('productDetails')?.value[i].isEditable">
+                    <input matInput type="text" formControlName="price" 
+                    [readonly]="!productForm.get('productDetails')?.value[i].isEditable"
+                    (click)="onPriceChange(productForm, i)">
                   </mat-form-field>
                 </td>
               </ng-container>

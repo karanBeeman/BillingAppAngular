@@ -13,7 +13,7 @@ import { InvoiceDataService } from '../invoice-data.service';
 })
 export class EdittodaybillsComponent implements OnInit {
   displayedColumns: string[] = ['Product', 'qty', 'price', 'amount', 'action'];
-  productList: string[];
+  productList= [];
   existingProduct: any;
   productForm: any;
   dataSource = new MatTableDataSource<any>();
@@ -57,14 +57,11 @@ export class EdittodaybillsComponent implements OnInit {
             console.log(this.totalamount);
     })
 
-    // this.httpClient.get('http://localhost:8080/ProductList')
-    //   .subscribe((productLists) => {
-                   
-    //   })
-
     this.invoiceService.getProduct().subscribe(productlists => {
-      console.log('productLit from serivce ', productlists);
-      this.productList = productlists;
+            productlists.forEach(products => {
+              console.log(products);
+              this.productList.push(products.productName);
+            })
     })
      
     
