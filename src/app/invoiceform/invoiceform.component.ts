@@ -62,7 +62,6 @@ export class InvoiceformComponent implements OnInit, OnChanges {
   }
 
   AddNewRow(prod : any) {
-    
     const control = this.productForm.get('productDetails') as FormArray;
     console.log("formArray", control);
     control.insert(0,this.addProductForm(prod));

@@ -27,8 +27,7 @@
                   <mat-form-field [ngClass]="productForm.get('productDetails')?.value[i].isEditable ? 'on-Edit': 'without-Edit'">
                     <input matInput type="text" formControlName="quantity"
                      [readonly]="!productForm.get('productDetails')?.value[i].isEditable" 
-                    
-                    (click)="quantityUpdate($event, productForm);$event.stopPropagation()">
+                    (change)="quantityUpdate( productForm, i)">
                   </mat-form-field>
                 </td>
               </ng-container>
@@ -38,7 +37,7 @@
                   <mat-form-field [ngClass]="productForm.get('productDetails')?.value[i].isEditable ? 'on-Edit': 'without-Edit'">
                     <input matInput type="text" formControlName="price" 
                     [readonly]="!productForm.get('productDetails')?.value[i].isEditable"
-                    (click)="onPriceChange(productForm, i)">
+                    (change)="onPriceChange(productForm, i)">
                   </mat-form-field>
                 </td>
               </ng-container>

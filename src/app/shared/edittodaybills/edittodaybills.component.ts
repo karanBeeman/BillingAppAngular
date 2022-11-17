@@ -18,6 +18,7 @@ export class EdittodaybillsComponent implements OnInit {
   productForm: any;
   dataSource = new MatTableDataSource<any>();
   totalamount: number;
+  copySource: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -47,6 +48,7 @@ export class EdittodaybillsComponent implements OnInit {
         )
       ),
     });
+    this.copySource = this.existingProduct.productDetailList;
     this.dataSource = new MatTableDataSource(
       (this.productForm.get('productDetails') as FormArray).controls
     );
@@ -90,7 +92,13 @@ editProductList(productElement: any, i: number) {
 }  
 
 cancelEdit(productElement:any, i:any) {
-  
+  this.copySource.forEach(element => {
+    console.log('eken', element)
+    if(productElement.get('productDetails').at(i).get('productName').value == element.productName) {
+      productElement.get('productDetails').at(i).get('quantity').patchValue(element.quantity);
+      productElement.get('productDetails').at(i).get('price').patchValue(element.price);
+    }
+  });
   productElement.get('productDetails').at(i).get('isEditable').patchValue(false);
 } 
 

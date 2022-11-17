@@ -9,6 +9,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PendingbillsComponent } from './pendingbills/pendingbills.component';
 import { HomeComponent } from './home/home.component';
 import { StockdetailsComponent } from './stockdetails/stockdetails.component';
+import { AddNewCustomerComponent } from './add-new-customer/add-new-customer.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { StockdetailsComponent } from './stockdetails/stockdetails.component';
     HeaderComponent,
     PendingbillsComponent,
     HomeComponent,
-    StockdetailsComponent
+    StockdetailsComponent,
+    AddNewCustomerComponent
   ],
   imports: [
     CommonModule,
