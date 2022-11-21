@@ -57,12 +57,18 @@ export class InvoiceproductComponent implements OnInit {
        this.datasourceCopy = JSON.parse(this.datasoruceC);
       this.dataSource.paginator = this.paginator;
         })
+
+       this.stockSubscribe();
   }
 
   onAddProduct(product: any){
   
     this.invoiceProduct.invoiceData.next(product);
     this.productObj.emit(product);
+    this.stockSubscribe();
+  }
+
+  stockSubscribe() {
     this.invoiceProduct.invoiceData.subscribe((productqty : FormGroup) => {
       if(productqty) {
         let rawData = productqty.getRawValue();
@@ -89,3 +95,5 @@ export class InvoiceproductComponent implements OnInit {
 
   
 }
+
+

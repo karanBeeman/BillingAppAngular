@@ -126,7 +126,7 @@ quantityUpdate(qnty : any, i : any) {
      });
   }
   
-  this.invoice.changeData(qnty.get('productDetails').at(i));
+  this.invoice.invoiceData.next(qnty.get('productDetails').at(i));
   console.log("element", qnty);
 }
 

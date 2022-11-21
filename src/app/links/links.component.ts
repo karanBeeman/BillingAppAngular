@@ -18,7 +18,7 @@ export class LinksComponent implements OnInit {
   private activeMediaQuery = '';
   deviceXs!: boolean;
 
-  constructor(private mediaObserver:MediaObserver, private sideNavService: InvoiceDataService) { }
+  constructor(private mediaObserver:MediaObserver) { }
 
   ngOnInit(): void {
     this.mediaSub = this.mediaObserver.asObservable().subscribe((change) => {
@@ -32,12 +32,5 @@ export class LinksComponent implements OnInit {
     // this.sideNavService.setSidenav(this.sidenav);
     
   }
-
-  ngAfterViewInit() {
-    this.sideNavService.sideNavToggleSubject.subscribe(()=> {
-      console.log(this.drawer);
-      this.drawer.toggle();
-    });
-  } 
 
 }

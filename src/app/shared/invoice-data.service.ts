@@ -14,31 +14,7 @@ export class InvoiceDataService {
 
 public invoiceData = new Subject<any>();
 
-public sideNavToggleSubject: BehaviorSubject<any> = new BehaviorSubject(null);
-
   constructor() { }
-
-  changeData(newData: object) {
-	console.log('newData', newData);
-	this.dataSub.next(newData);
-  }
  
-
-	// public setSidenav(sidenav: MatSidenav) {
-	// 	this.sidenav = sidenav;
-	// }
-
-	// public open() {
-	// 	return this.sidenav.open();
-	// }
-
-
-	// public close() {
-	// 	return this.sidenav.close();
-	// }
-
-	public toggle(): void {
-	   this.sideNavToggleSubject.next(null);
-	}
 }
 

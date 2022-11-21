@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { InoviceBillService } from 'src/app/shared/inovice-bill.service';
+import { InvoiceDataService } from 'src/app/shared/invoice-data.service';
 
 @Component({
   selector: 'app-stockdetails',
@@ -15,7 +17,7 @@ export class StockdetailsComponent implements OnInit {
   copySource: any;
   dataSource = new MatTableDataSource<any>();
   displayedColumns = ['productName', 'stock', 'action'];
-  constructor(private httpClient: HttpClient, private fb: FormBuilder) {}
+  constructor(private httpClient: HttpClient, private fb: FormBuilder, private invoiceBillService: InoviceBillService) {}
 
   ngOnInit(): void {
     this.stockForm = this.fb.group({
@@ -82,6 +84,7 @@ newStockForm(): FormGroup {
 }
 
 updateStock() {
+ this.invoiceBillService.postStockDetails(this.stockForm).subscribe(res => res );
    console.log("update stock component : ", this.stockForm );
 }
 

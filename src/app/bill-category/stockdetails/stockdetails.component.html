@@ -1,11 +1,10 @@
 <div class="stockDetails">
   <div class="addStock">
-    <div>
-      <pre class="heading">Stock Details</pre>
-    </div>
     <mat-icon  class="add-Row" matTooltip="Add new stock" (click)="addNewRow()">add_circle</mat-icon>
+      <pre class="heading">Stock Details</pre> 
+    
 </div>
-  <form (ngSubmit)="updateStock()" [formGroup]="stockForm" autocomplete="off" id="stockForm">
+  <form (ngSubmit)="updateStock()" [formGroup]="stockForm" autocomplete="off" id="stockForm" class="mat-elevation-z8">
     <ng-container formArrayName="stockDetails">
         <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="productName">

@@ -1,0 +1,49 @@
+.rightGrid {
+    display: flex;
+    flex-direction: column;
+    justify-items: start;
+    
+    align-self: start;
+}
+
+.mat-accordion { 
+    border-bottom: none;
+  }
+  
+  .mat-accordion .mat-expansion-panel{
+    margin-bottom: 15px;
+  }
+  
+  .mat-cell {
+       padding-left: 20px;
+  }
+  
+  .mat-row, .mat-header-row {
+    display: flex;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    align-items: center;
+    background-color: rgb(199, 212, 224);
+  }
+  
+  .mat-table {
+    display: block;
+    width: 50%;
+  }
+
+  .existingCustomerTitle {
+    font-size: larger;
+    font-weight: bold;
+    margin-bottom: 2em;
+  }
+
+  .table-align {
+    margin-top: 1em;
+    width: 50%;
+  }
+
+  .expansionItems {
+    margin-right: 10px;
+  }
+  
+    

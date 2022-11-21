@@ -20,11 +20,11 @@
 form {
    display: inline-block;
    align-items: center;
-    width: 50%;
+    width: 40%;
 }
 
 .mat-table {
-    width: 80%;
+    width: 100%;
 }
 
 
@@ -37,21 +37,23 @@ form {
 }  
 
 .addStock {
-    display: inline-block;
-    align-items: flex-start;
-   width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    text-align: center;
+   width: 40%;
+   margin-bottom: 2em;
 }
 
 .updatestock {
-    margin-top: 5px;
+    margin-top: 2em;
     width: 30%;
 }
 
 .heading {
     font-size: larger;
     font-weight: bold;
-    margin-bottom: 2em;
-    text-align: center;
+    text-align: start;
+    
   }
     
 

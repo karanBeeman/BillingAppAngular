@@ -1,25 +1,37 @@
-.customerDetailform {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-content: center;
-    align-items: center;
-}
+
 
 .leftGrid {
-    margin-top: 5em;
+    margin-top: 2em;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-mat-card {  
-    align-items: center;
-    justify-content: center;
+.headergrid {
     width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2em;
 }
 
 .mat-card-div {
-    
+    width: 50%;
     margin-bottom: 2em;
+}
+
+.addProduct {
+    width: 50%;
+}
+
+table {
+    width: 100%;
+}
+
+.newcustomertitle {
+    font-size: larger;
+    font-weight: bold;
+    text-align: start;
 }

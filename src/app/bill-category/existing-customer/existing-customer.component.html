@@ -1,0 +1,28 @@
+<div class="rightGrid">
+    <div>
+        <pre class="existingCustomerTitle">Existing Customer </pre>
+    </div>
+    <mat-accordion displayMode="flat" multi class="mat-table">
+        <mat-expansion-panel *ngFor="let item of displayedRows" >
+          <mat-expansion-panel-header class="mat-row">
+            <span class="mat-cell"><b>{{item.hotelDetails.hotelName}}</b></span>
+          </mat-expansion-panel-header>
+          <table class="table-align">
+            <tr>
+              <th>Product</th>
+              <th>price</th>
+            </tr>
+            <tr *ngFor="let productDetails of item.defaultProductWithPriceList" >
+              <td>{{productDetails.defaultProducts}}</td>
+              <td>{{productDetails.defaultPrice}}</td>
+            </tr>
+          </table>
+          <mat-action-row >
+              <mat-icon class="expansionItems" color="accent" matTooltip="info">info</mat-icon>
+              <mat-icon class="expansionItems" color="primary" matTooltip="edit">edit</mat-icon>
+              <mat-icon class="expansionItems" color="warn" matTooltip="delete">delete</mat-icon>
+          </mat-action-row>
+         
+        </mat-expansion-panel>
+  </mat-accordion>
+</div>

@@ -10,6 +10,8 @@ import { PendingbillsComponent } from './pendingbills/pendingbills.component';
 import { HomeComponent } from './home/home.component';
 import { StockdetailsComponent } from './stockdetails/stockdetails.component';
 import { AddNewCustomerComponent } from './add-new-customer/add-new-customer.component';
+import { CustomerComponent } from './customer/customer.component';
+import { ExistingCustomerComponent } from './existing-customer/existing-customer.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { AddNewCustomerComponent } from './add-new-customer/add-new-customer.com
     PendingbillsComponent,
     HomeComponent,
     StockdetailsComponent,
-    AddNewCustomerComponent
+    AddNewCustomerComponent,
+    CustomerComponent,
+    ExistingCustomerComponent
   ],
   imports: [
     CommonModule,

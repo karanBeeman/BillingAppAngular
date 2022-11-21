@@ -6,8 +6,12 @@ import { from, map, Observable, of, switchMap, toArray } from 'rxjs';
   providedIn: 'root'
 })
 export class InoviceBillService {
-  asObservable() {
-    throw new Error('Method not implemented.');
+   stockObject : any;
+
+  postStockDetails(stockForm: any) {
+    this.stockObject = stockForm.value;
+    console.log("salkdfjlkasjfd", this.stockObject)
+    return this.httpClient.post('http://localhost:8080/stockdetails/save', this.stockObject).pipe(map(res => res));
   }
 
   constructor(private httpClient: HttpClient) { }
@@ -17,7 +21,15 @@ export class InoviceBillService {
       map((res => res))
      );
   }
-    
+
+  public getCustomerDetailsWithdefaultProducts() : Observable<any> {
+    return  this.httpClient.get('http://localhost:8080/existingCustomer').pipe((map(res => res)));
+  }
+   
+ public getSelectedCusotmerProducts(customerName : string) : Observable<any> {
+   console.log("customerName", customerName);
+      return this.httpClient.get('http://localhost:8080/customer/' + customerName).pipe(map(res => res));
+ } 
    
 
 }
