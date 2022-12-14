@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { InoviceBillService } from 'src/app/shared/inovice-bill.service';
 
 @Component({
   selector: 'app-add-new-customer',
@@ -12,7 +14,7 @@ export class AddNewCustomerComponent implements OnInit {
   dataSource = new MatTableDataSource<any>();
   newCusotmerForm:FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private InvoiceBillService: InoviceBillService, private router: Router) { }
   customerDetails :FormGroup = new FormGroup({
     customerName : new FormControl(''),
     customerAddress : new FormControl(''),
@@ -36,9 +38,26 @@ export class AddNewCustomerComponent implements OnInit {
 
   newCustomerForm(): FormGroup {
     return this.fb.group({
-      productName: new FormControl(''),
-      price: new FormControl(''),
+      defaultProducts: new FormControl(''),
+      defaultPrice: new FormControl(''),
     });
   }
+
+  customerFormSubmit() {
+    console.log(this.newCusotmerForm.value);
+    const customerDetails = this.customerDetails.value;
+    
+    const customerData = {
+      customerName: this.customerDetails.value.customerName,
+      customerAddress: this.customerDetails.value.customerAddress,
+      customerGstNumber: this.customerDetails.value.customerGstNumber,
+      customerPhoneNumber: this.customerDetails.value.customerPhoneNumber,
+      defaultProductWithPriceList: this.newCusotmerForm.value.newCusotmerDetails
+    };
+    this.InvoiceBillService.saveCusotmerDetails(customerData).subscribe(res => res);
+      this.router.navigateByUrl("customer");
+    
+  }
+
 
 }

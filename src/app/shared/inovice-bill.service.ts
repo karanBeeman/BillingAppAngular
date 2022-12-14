@@ -6,7 +6,13 @@ import { from, map, Observable, of, switchMap, toArray } from 'rxjs';
   providedIn: 'root'
 })
 export class InoviceBillService {
+
+  
    stockObject : any;
+
+   saveCusotmerDetails(customerDetails: any) :  Observable<any> {
+    return this.httpClient.post('http://localhost:8080/save/cusotmerdetails', customerDetails).pipe(map(res=> res));
+  } 
 
   postStockDetails(stockForm: any) {
     this.stockObject = stockForm.value;
@@ -23,7 +29,7 @@ export class InoviceBillService {
   }
 
   public getCustomerDetailsWithdefaultProducts() : Observable<any> {
-    return  this.httpClient.get('http://localhost:8080/existingCustomer').pipe((map(res => res)));
+    return  this.httpClient.get('http://localhost:8080/get/existingcustomer').pipe((map(res => res)));
   }
    
  public getSelectedCusotmerProducts(customerName : string) : Observable<any> {

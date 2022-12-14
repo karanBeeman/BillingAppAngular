@@ -13,7 +13,6 @@ export class ExistingCustomerComponent implements OnInit {
 
   ngOnInit(): void {
       this.invoiceBillservice.getCustomerDetailsWithdefaultProducts().subscribe(customerWithProdLit => {
-        console.log("cusotmerWithProdList", customerWithProdLit);
         this.displayedRows = customerWithProdLit;
       })
   }

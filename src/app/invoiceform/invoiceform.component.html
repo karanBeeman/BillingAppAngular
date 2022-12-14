@@ -34,7 +34,7 @@
         <mat-label>customer Name : </mat-label>
         <mat-select (selectionChange)="onHotelChange($event)" formControlName="details">
           <mat-option *ngFor="let hotels of hotelDetailsObject" [value]="hotels">
-            {{hotels.hotelName}}
+            {{hotels.customerName}}
           </mat-option>
         </mat-select>
       </mat-form-field>  

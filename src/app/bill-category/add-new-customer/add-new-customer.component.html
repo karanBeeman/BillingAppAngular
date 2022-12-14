@@ -37,10 +37,10 @@
       </mat-card-content>
     </mat-card>
     </div>
-    <div class="addProduct" class="mat-elevation-z8">
-      <form
+    <div class="addProduct" class="mat-elevation-z8" style="width: 50%;">
+      <form (ngSubmit)="customerFormSubmit()"
         [formGroup]="newCusotmerForm"
-        autocomplete="off">
+        autocomplete="off" id="newCustomerForm">
         <ng-container formArrayName="newCusotmerDetails">
           <table mat-table [dataSource]="dataSource"  >
             <ng-container matColumnDef="Product">
@@ -51,7 +51,7 @@
                 [formGroup]="element"
               >
                 <mat-form-field style="width: 50px">
-                  <input matInput type="text" formControlName="productName" />
+                  <input matInput type="text" formControlName="defaultProducts" />
                 </mat-form-field>
               </td>
             </ng-container>
@@ -63,7 +63,7 @@
                 [formGroup]="element"
               >
                 <mat-form-field style="width: 50px">
-                  <input matInput type="text" formControlName="price" />
+                  <input matInput type="text" formControlName="defaultPrice" />
                 </mat-form-field>
               </td>
             </ng-container>
@@ -72,5 +72,8 @@
           </table>
         </ng-container>
       </form>
+    </div>
+    <div>
+      <button class="submitButton" mat-raised-button form="newCustomerForm" color="primary">Submit</button>
     </div>
   </div>  

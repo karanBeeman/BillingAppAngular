@@ -68,8 +68,9 @@ export class InvoiceformComponent implements OnInit, OnChanges {
     this.invoiceBillService
       .getCustomerDetailsWithdefaultProducts()
       .subscribe((customerList) => {
+        console.log('invoice form customer List', customerList);
         customerList.forEach((custList) => {
-          this.hotelDetailArray.push(custList.hotelDetails);
+          this.hotelDetailArray.push(custList);
         });
         this.hotelDetailsObject = this.hotelDetailArray;
       });
@@ -138,13 +139,11 @@ export class InvoiceformComponent implements OnInit, OnChanges {
   }
 
   onHotelChange(hotel: any) {
-    this.invoiceBillService
-      .getSelectedCusotmerProducts(hotel.value.hotelName)
-      .subscribe((res) => {
-        console.log('res ....', res.defaultProductWithPriceList);
+   
+        console.log('res ....', hotel.value.defaultProductWithPriceList);
         this.productForm = this.fb.group({
           productDetails: this.fb.array(
-            res.defaultProductWithPriceList.map((val) =>
+            hotel.value.defaultProductWithPriceList.map((val) =>
               this.fb.group({
                 productName: new FormControl(val.defaultProducts),
                 quantity: new FormControl(''),
@@ -158,12 +157,12 @@ export class InvoiceformComponent implements OnInit, OnChanges {
         this.dataSource = new MatTableDataSource(
           (this.productForm.get('productDetails') as FormArray).controls
         );
-      });
+     
 
     console.log('dataSource', this.dataSource);
-    this.hotelGST = hotel.value.hotelGstNumber;
-    this.hotelAddress = hotel.value.hotelAddress;
-    this.hotelNumber = hotel.value.hotelPhoneNumber;
+    this.hotelGST = hotel.value.customerGstNumber;
+    this.hotelAddress = hotel.value.customerAddress;
+    this.hotelNumber = hotel.value.customerPhoneNumber;
   }
 
   onPriceChange(price: any, i: any) {
