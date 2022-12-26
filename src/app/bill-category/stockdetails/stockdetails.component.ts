@@ -24,8 +24,8 @@ export class StockdetailsComponent implements OnInit {
       stockDetails: this.fb.array([])
     });
 
-this.httpClient
-      .get('http://localhost:8080/ProductList')
+
+   this.invoiceBillService.getStockDetails()
       .subscribe((res) => {
         console.log('stock detials', res);
         this.stockObject = res;
@@ -35,7 +35,7 @@ this.httpClient
             this.stockObject.map((objectValue) => 
               this.fb.group({
                 productName: new FormControl(objectValue.productName),
-                stock: new FormControl(objectValue.inStock),
+                stock: new FormControl(objectValue.stock),
                 isEditable: new FormControl(false),
                 action: new FormControl('existingRecord'),
               })
@@ -63,7 +63,7 @@ cancelEdit(productElement:any, i:number) {
     this.copySource.forEach(element => {
       console.log('eken', element)
       if(productElement.get('stockDetails').at(i).get('productName').value == element.productName) {
-        productElement.get('stockDetails').at(i).get('stock').patchValue(element.inStock);
+        productElement.get('stockDetails').at(i).get('stock').patchValue(element.stock);
       }
     });
     productElement.get('stockDetails').at(i).get('isEditable').patchValue(false);
@@ -84,8 +84,21 @@ newStockForm(): FormGroup {
 }
 
 updateStock() {
- this.invoiceBillService.postStockDetails(this.stockForm).subscribe(res => res );
-   console.log("update stock component : ", this.stockForm );
+
+  const stockDetails =  this.stockForm.controls.stockDetails.controls.map(formGrp=>{
+    return {productName: formGrp.value.productName, stock: formGrp.value.stock}
+  })
+  console.log(stockDetails)
+ this.invoiceBillService.postStockDetails(stockDetails).subscribe(res => {
+   
+  console.log("update stock component : ", res);});
+}
+
+removeStock(stockForm: any, i: any) {
+  const prodDetails = this.stockForm.get('stockDetails') as FormArray;
+  console.log("stockDetails...", prodDetails.controls.at(i));
+  prodDetails.removeAt(i);
+  this.dataSource._updateChangeSubscription();
 }
 
 }

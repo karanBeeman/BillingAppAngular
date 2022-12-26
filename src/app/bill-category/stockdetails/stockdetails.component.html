@@ -41,7 +41,7 @@
                  </button> 
                  <button mat-icon-button class="material-icons app-toolbar-menu delete-button"
                  *ngIf="!stockForm.get('stockDetails')?.value[i].isEditable"
-                                          color="warn">
+                                          color="warn" (click)="removeStock(stockForm,i)">
                                          <mat-icon>delete</mat-icon>
                     </button>
                  </td>

@@ -14,6 +14,8 @@ export class InvoiceDataService {
 
 public invoiceData = new Subject<any>();
 
+public stockUpdateOnDelete = new Subject<any>();
+
   constructor() { }
  
 }

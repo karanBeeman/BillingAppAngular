@@ -13,7 +13,7 @@ import { InvoiceDataService } from '../invoice-data.service';
 })
 export class EdittodaybillsComponent implements OnInit {
   displayedColumns: string[] = ['Product', 'qty', 'price', 'amount', 'action'];
-  productList= [];
+  productList: any;
   existingProduct: any;
   productForm: any;
   dataSource = new MatTableDataSource<any>();
@@ -25,9 +25,9 @@ export class EdittodaybillsComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private fb: FormBuilder,
     public matDialogRef: MatDialogRef<EdittodaybillsComponent>,
-    private invoice : InvoiceDataService,
-    private httpClient : HttpClient,
-    private invoiceService : InoviceBillService
+    private invoice: InvoiceDataService,
+    private httpClient: HttpClient,
+    private invoiceService: InoviceBillService
   ) {}
 
   ngOnInit(): void {
@@ -53,29 +53,25 @@ export class EdittodaybillsComponent implements OnInit {
       (this.productForm.get('productDetails') as FormArray).controls
     );
     this.totalamount = 0;
-    this.existingProduct.productDetailList.forEach(element => {
-      console.log(element.amount)
-            this.totalamount =  this.totalamount + element.amount;
-            console.log(this.totalamount);
-    })
+    this.existingProduct.productDetailList.forEach((element) => {
+      console.log(element.amount);
+      this.totalamount = this.totalamount + element.amount;
+      console.log(this.totalamount);
+    });
 
-    this.invoiceService.getProduct().subscribe(productlists => {
-            productlists.forEach(products => {
-              console.log(products);
-              this.productList.push(products.productName);
-            })
-    })
-     
-    
+    this.invoiceService.getStockDetails().subscribe((productlists) => {
+      console.log('edittoday bills product Date ', productlists);
+      this.productList = productlists;
+    });
   }
 
   addNewRow() {
     const control = this.productForm.get('productDetails') as FormArray;
-    control.insert(0,this.newProductForm());
+    control.insert(0, this.newProductForm());
     this.dataSource = new MatTableDataSource(control.controls);
-}  
+  }
 
-newProductForm(): FormGroup {
+  newProductForm(): FormGroup {
     return this.fb.group({
       productName: new FormControl(''),
       quantity: new FormControl(''),
@@ -85,63 +81,102 @@ newProductForm(): FormGroup {
       isEditable: new FormControl(true),
       isNewRow: new FormControl(true),
     });
-}
-
-editProductList(productElement: any, i: number) {
-  productElement.get('productDetails').at(i).get('isEditable').patchValue(true);
-}  
-
-cancelEdit(productElement:any, i:any) {
-  this.copySource.forEach(element => {
-    console.log('eken', element)
-    if(productElement.get('productDetails').at(i).get('productName').value == element.productName) {
-      productElement.get('productDetails').at(i).get('quantity').patchValue(element.quantity);
-      productElement.get('productDetails').at(i).get('price').patchValue(element.price);
-    }
-  });
-  productElement.get('productDetails').at(i).get('isEditable').patchValue(false);
-} 
-
-includeProductToList(productElement:any, i:any) {
-  productElement.get('productDetails').at(i).get('isEditable').patchValue(false);
-}
-
-closeDialog() {
-  this.matDialogRef.close();
-}
-
-printEditedProductList() {
-  console.log(this.productForm);
-}
-quantityUpdate(qnty : any, i : any) {
-  if(qnty.get('productDetails').at(i)?.get('price').value != 0) {
-    this.totalamount = 0;
-    let addamount = qnty.get('productDetails').at(i)?.get('quantity').value * qnty.get('productDetails').at(i)?.get('price').value;
-    qnty.get('productDetails').at(i)?.get('amount')?.patchValue(addamount);
-     qnty.get('productDetails').controls.forEach((element :any) => {
-      console.log("element.controls.amount", element.controls.amount.value);
-         this.totalamount = element.controls.amount.value + this.totalamount;
-         console.log("totalamount " + this.totalamount);
-      
-     });
   }
-  
-  this.invoice.invoiceData.next(qnty.get('productDetails').at(i));
-  console.log("element", qnty);
-}
 
-onPriceChange(price: any, i : any) {
-  this.totalamount = 0;
-  let addamount = price.get('productDetails').at(i)?.get('quantity').value * price.get('productDetails').at(i)?.get('price').value;
-  price.get('productDetails').at(i)?.get('amount')?.patchValue(addamount);
-  price.get('productDetails').controls.forEach((element :any) => {
-    console.log("element.controls.amount", element.controls.amount.value);
-       this.totalamount = element.controls.amount.value + this.totalamount;
-       console.log("totalamount " + this.totalamount);
-    
-   });
-  console.log("price - " , price.value.price * price.value.qty);
-}
+  editProductList(productElement: any, i: number) {
+    productElement
+      .get('productDetails')
+      .at(i)
+      .get('isEditable')
+      .patchValue(true);
+  }
 
+  cancelEdit(productElement: any, i: any) {
+    this.copySource.forEach((element) => {
+      console.log('eken', element);
+      if (
+        productElement.get('productDetails').at(i).get('productName').value ==
+        element.productName
+      ) {
+        productElement
+          .get('productDetails')
+          .at(i)
+          .get('quantity')
+          .patchValue(element.quantity);
+        productElement
+          .get('productDetails')
+          .at(i)
+          .get('price')
+          .patchValue(element.price);
+      }
+    });
+    productElement
+      .get('productDetails')
+      .at(i)
+      .get('isEditable')
+      .patchValue(false);
+  }
 
+  includeProductToList(productElement: any, i: any) {
+    productElement
+      .get('productDetails')
+      .at(i)
+      .get('isEditable')
+      .patchValue(false);
+  }
+
+  closeDialog() {
+    this.matDialogRef.close();
+  }
+
+  printEditedProductList() {
+    console.log(this.productForm);
+  }
+  quantityUpdate(qnty: any, i: any) {
+    if (qnty.get('productDetails').at(i)?.get('price').value != 0) {
+      this.totalamount = 0;
+      let addamount =
+        qnty.get('productDetails').at(i)?.get('quantity').value *
+        qnty.get('productDetails').at(i)?.get('price').value;
+      qnty.get('productDetails').at(i)?.get('amount')?.patchValue(addamount);
+      qnty.get('productDetails').controls.forEach((element: any) => {
+        console.log('element.controls.amount', element.controls.amount.value);
+        this.totalamount = element.controls.amount.value + this.totalamount;
+        console.log('totalamount ' + this.totalamount);
+      });
+    }
+
+    this.invoice.invoiceData.next(qnty.get('productDetails').at(i));
+    console.log('element', qnty);
+  }
+
+  onPriceChange(price: any, i: any) {
+    this.totalamount = 0;
+    let addamount =
+      price.get('productDetails').at(i)?.get('quantity').value *
+      price.get('productDetails').at(i)?.get('price').value;
+    price.get('productDetails').at(i)?.get('amount')?.patchValue(addamount);
+    price.get('productDetails').controls.forEach((element: any) => {
+      console.log('element.controls.amount', element.controls.amount.value);
+      this.totalamount = element.controls.amount.value + this.totalamount;
+      console.log('totalamount ' + this.totalamount);
+    });
+    console.log('price - ', price.value.price * price.value.qty);
+  }
+
+  removeRow(i: any) {
+    this.totalamount = 0;
+    const prodDetails = this.productForm.get('productDetails') as FormArray;
+    console.log('prodDetails', prodDetails.controls.at(i));
+    if (prodDetails.controls.at(i).value.quantity != '') {
+      this.invoice.stockUpdateOnDelete.next(prodDetails.controls.at(i));
+      console.log('not null');
+    }
+
+    prodDetails.removeAt(i);
+    prodDetails.controls.forEach((element: any) => {
+      this.totalamount = element.controls.amount.value + this.totalamount;
+    });
+    this.dataSource._updateChangeSubscription();
+  }
 }

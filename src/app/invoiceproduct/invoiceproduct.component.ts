@@ -5,6 +5,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { TitleStrategy } from '@angular/router';
+import { InoviceBillService } from '../shared/inovice-bill.service';
 import { InvoiceDataService } from '../shared/invoice-data.service';
 
 export interface ProductData {
@@ -42,14 +43,16 @@ export class InvoiceproductComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   value: any;
   
-  constructor( private fb: FormBuilder, private httpClient: HttpClient, private _formBuilder: FormBuilder, private invoiceProduct : InvoiceDataService) { }
+  constructor( private fb: FormBuilder, private httpClient: HttpClient, private _formBuilder: FormBuilder, 
+    private invoiceProduct : InvoiceDataService, private invoiceBillService: InoviceBillService) { }
 
   ngOnInit(): void {
     this.ProductForm = this._formBuilder.group({
       productDetails: this._formBuilder.array([])
     });
 
-    this.httpClient.get("http://localhost:8080/ProductList").subscribe((res) => {
+    this.invoiceBillService.getStockDetails()
+      .subscribe((res) => {
       this.ProductData = res;
       console.log(this.ProductData);
       this.dataSource.data = this.ProductData;
@@ -59,6 +62,7 @@ export class InvoiceproductComponent implements OnInit {
         })
 
        this.stockSubscribe();
+       this.stockUpdateOnDeleteProduct();
   }
 
   onAddProduct(product: any){
@@ -66,19 +70,42 @@ export class InvoiceproductComponent implements OnInit {
     this.invoiceProduct.invoiceData.next(product);
     this.productObj.emit(product);
     this.stockSubscribe();
+    
+  }
+  stockUpdateOnDeleteProduct() {
+    this.invoiceProduct.stockUpdateOnDelete.subscribe((productqty : FormGroup) => {
+      if(productqty) {
+        console.log('entere inot stockUpdaeonDelete')
+        let rawData = productqty.getRawValue();
+        console.log("rawData", productqty)
+        for(let i=0; i< this.datasourceCopy.length; i++) {
+               if((this.datasourceCopy[i].productName) === rawData.productName) {
+                   const updateStock =  this.datasourceCopy[i].stock - 0;
+                  for(let y=0; y < this.dataSource.data.length; y++) {
+                      if(this.dataSource.data[y].productName === rawData.productName) {
+                        this.dataSource.data[y].stock = updateStock;
+                        break;
+                      }
+                  }
+                  break;
+               }
+        }
+      }
+    })
   }
 
   stockSubscribe() {
+    console.log('stock subs')
     this.invoiceProduct.invoiceData.subscribe((productqty : FormGroup) => {
       if(productqty) {
         let rawData = productqty.getRawValue();
         console.log("rawData", rawData)
         for(let i=0; i< this.datasourceCopy.length; i++) {
                if((this.datasourceCopy[i].productName) === rawData.productName) {
-                   const updateStock =  this.datasourceCopy[i].inStock - rawData.quantity;
+                   const updateStock =  this.datasourceCopy[i].stock - rawData.quantity;
                   for(let y=0; y < this.dataSource.data.length; y++) {
                       if(this.dataSource.data[y].productName === rawData.productName) {
-                        this.dataSource.data[y].inStock = updateStock;
+                        this.dataSource.data[y].stock = updateStock;
                         break;
                       }
                   }

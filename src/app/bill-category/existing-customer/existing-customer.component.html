@@ -20,7 +20,7 @@
           <mat-action-row >
               <mat-icon class="expansionItems" color="accent" matTooltip="info">info</mat-icon>
               <mat-icon class="expansionItems" color="primary" matTooltip="edit">edit</mat-icon>
-              <mat-icon class="expansionItems" color="warn" matTooltip="delete">delete</mat-icon>
+              <mat-icon class="expansionItems" color="warn" matTooltip="delete" (click)="deleteExistingCustomer(item)">delete</mat-icon>
           </mat-action-row>
          
         </mat-expansion-panel>

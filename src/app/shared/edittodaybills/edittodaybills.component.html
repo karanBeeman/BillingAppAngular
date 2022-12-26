@@ -14,8 +14,8 @@
                   </mat-form-field>
                   <mat-form-field *ngIf="productForm.get('productDetails')?.value[i].isEditable" class="on-Edit">
                     <mat-select formControlName="productName">
-                      <mat-option *ngFor="let productNames of productList" [value]="productNames">
-                        {{productNames}}
+                      <mat-option *ngFor="let prod of productList" [value]="prod.productName">
+                        {{prod.productName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -71,7 +71,7 @@
                  </button>    
                  <button mat-icon-button class="material-icons app-toolbar-menu delete-button"
                  *ngIf="!productForm.get('productDetails')?.value[i].isEditable"
-                                          color="warn">
+                                          color="warn" (click)="removeRow(i)">
                                          <mat-icon>delete</mat-icon>
                     </button>            
                </td>

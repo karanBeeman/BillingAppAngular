@@ -1,10 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -12,6 +16,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { InvoiceDataService } from 'src/app/shared/invoice-data.service';
+import { InvoiceproductComponent } from '../invoiceproduct/invoiceproduct.component';
 import { InoviceBillService } from '../shared/inovice-bill.service';
 
 export interface ProductData {
@@ -39,6 +44,8 @@ export class InvoiceformComponent implements OnInit, OnChanges {
   hotelAddress!: string;
   hotelNumber!: any;
   totalamount: any;
+  invoiceNumber: any;
+  quantityV : any;
 
   @Input() set recievedProduct(prod: any) {
     console.log(prod);
@@ -46,6 +53,8 @@ export class InvoiceformComponent implements OnInit, OnChanges {
       this.AddNewRow(prod);
     }
   }
+
+  @Output() submit = new EventEmitter<any>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('pdfTable') pdfTable!: ElementRef;
 
@@ -54,7 +63,8 @@ export class InvoiceformComponent implements OnInit, OnChanges {
     private httpClient: HttpClient,
     private _formBuilder: FormBuilder,
     private invoice: InvoiceDataService,
-    private invoiceBillService: InoviceBillService
+    private invoiceBillService: InoviceBillService,
+    private cdref: ChangeDetectorRef
   ) {}
   hotelDetails: FormGroup = new FormGroup({
     details: new FormControl(''),
@@ -65,6 +75,10 @@ export class InvoiceformComponent implements OnInit, OnChanges {
   });
 
   ngOnInit(): void {
+
+    this.invoiceBillService.getInvoiceNumber().subscribe(invoiceNumber => {
+      this.invoiceNumber = invoiceNumber;
+    })
     this.invoiceBillService
       .getCustomerDetailsWithdefaultProducts()
       .subscribe((customerList) => {
@@ -102,18 +116,34 @@ export class InvoiceformComponent implements OnInit, OnChanges {
     const hotelDetails = this.hotelDetails.controls['details'].value;
     const dateDetails = this.dateDetails.value;
     const productDetails = this.productForm.controls['productDetails'].value;
-    console.log(productDetails);
-    const invoiceData = {
-      hotelDetails: hotelDetails,
-      //date: dateDetails,
-      productDetailList: productDetails,
-    };
-    this.httpClient
-      .post('http://localhost:8080/invoiceData', invoiceData)
-      .subscribe((res) => {
-        console.log(res);
-      });
-    console.log(invoiceData);
+    let flag =false;
+    let qtyPrice = false;
+    if(hotelDetails!='' && dateDetails.date!= '' && this.invoiceNumber!= '') {
+      for(let i=0; i< productDetails.length; i++) {
+        if(productDetails[i].quantity== '' || productDetails[i].price == '')  {
+         qtyPrice = true;
+          break;
+         } 
+      } if(!qtyPrice) {
+        const invoiceData = {
+          invoiceNumber: this.invoiceNumber,
+          hotelDetails: hotelDetails,
+          date: dateDetails.date,
+          productDetailList: productDetails,
+        };
+        flag = true;
+        this.submit.emit(flag);
+        this.httpClient
+        .post('http://localhost:8080/invoiceData', invoiceData)
+        .subscribe((res) => {
+          console.log(res);
+        });
+      } else {
+        alert('quantity or price cannot be empty');
+      } 
+    } else {
+      alert('date or hotel details cannot be empty')
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -135,7 +165,7 @@ export class InvoiceformComponent implements OnInit, OnChanges {
     }
 
     this.invoice.invoiceData.next(qnty.get('productDetails').at(i));
-    console.log('element', qnty);
+    console.log('element', qnty.get('productDetails').at(i));
   }
 
   onHotelChange(hotel: any) {
@@ -179,7 +209,20 @@ export class InvoiceformComponent implements OnInit, OnChanges {
     console.log('price - ', price.value.price * price.value.qty);
   }
 
-  removeRow(form: FormGroup, i: any) {
-    console.log('removed');
+  removeRow(form:any, i: any) {
+    this.totalamount = 0;
+  const prodDetails = this.productForm.get('productDetails') as FormArray;
+  console.log("prodDetails", prodDetails.controls.at(i));
+  if(prodDetails.controls.at(i).value.quantity!= '') {
+    this.invoice.stockUpdateOnDelete.next(prodDetails.controls.at(i));
+    console.log("not null")
   }
+ 
+  prodDetails.removeAt(i);
+  prodDetails.controls.forEach((element: any) => {
+    this.totalamount = element.controls.amount.value + this.totalamount;
+  })
+  this.dataSource._updateChangeSubscription();
+
+}
 }

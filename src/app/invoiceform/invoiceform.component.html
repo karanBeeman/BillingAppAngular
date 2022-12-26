@@ -12,7 +12,7 @@
   <div class="fromDetails_Date">
     <div>
       <label><b>Invoice No:</b></label>
-      {{1}}
+      {{invoiceNumber}}
     </div>
     <br>
     <div>
@@ -93,8 +93,8 @@
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef> Action </th> 
              <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
-               <button mat-icon-button class="material-icons app-toolbar-menu delete-button"
-                                        color="warn" (click)="removeRow(productForm, i)">
+               <button mat-icon-button  class="material-icons app-toolbar-menu delete-button"
+                                        color="warn" (click)="removeRow(productForm, i);$event.stopPropagation()">
                                        <mat-icon>delete</mat-icon>
                                    </button>
              </td>
@@ -116,7 +116,7 @@
         <div class="totalAmount">
           <div>
           <label><b>Total Amount</b></label><br>
-          <button class="submitButton" mat-raised-button form="productForm" color="primary">Submit</button>
+          <button class="submitButton" mat-raised-button form="productForm" color="primary" >Submit</button>
         </div>
           <div>
           <label>Rs :</label>

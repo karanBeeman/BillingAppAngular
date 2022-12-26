@@ -33,7 +33,7 @@
                     <div class="productStock">
                         <div class="leftColumn">
                             <div calss="topRow">
-                            <app-invoiceproduct (productObj)="product = $event"></app-invoiceproduct>
+                            <app-invoiceproduct (productObj)="product = $event" #invoiceProduct></app-invoiceproduct>
                         </div>
                         <div class="bottomRow" *ngIf="!deviceXs">
                             <app-links></app-links>
@@ -42,7 +42,7 @@
                         </div>
                         <div class="invoiceBills">
                          <div class="rigthColumn">
-                            <app-invoiceform [recievedProduct] = "product"></app-invoiceform>
+                            <app-invoiceform [recievedProduct] = "product" (submit)="onSubmit($event)"></app-invoiceform>
                         </div>
                     </div>
             </div>
