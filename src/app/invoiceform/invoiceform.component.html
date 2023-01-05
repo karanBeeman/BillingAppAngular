@@ -16,15 +16,12 @@
     </div>
     <br>
     <div>
-      <form [formGroup]="dateDetails">
         <label><b>Date : </b></label>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" formControlName="date">
+          <input matInput [matDatepicker]="picker" [(ngModel)]="selectDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-      </form>
-      
     </div>
   </div>
   <div class="ToDetails">

@@ -80,7 +80,7 @@ export class InvoiceproductComponent implements OnInit {
         console.log("rawData", productqty)
         for(let i=0; i< this.datasourceCopy.length; i++) {
                if((this.datasourceCopy[i].productName) === rawData.productName) {
-                   const updateStock =  this.datasourceCopy[i].stock - 0;
+                   const updateStock =  this.datasourceCopy[i].stock;
                   for(let y=0; y < this.dataSource.data.length; y++) {
                       if(this.dataSource.data[y].productName === rawData.productName) {
                         this.dataSource.data[y].stock = updateStock;

@@ -12,6 +12,8 @@ import { StockdetailsComponent } from './stockdetails/stockdetails.component';
 import { AddNewCustomerComponent } from './add-new-customer/add-new-customer.component';
 import { CustomerComponent } from './customer/customer.component';
 import { ExistingCustomerComponent } from './existing-customer/existing-customer.component';
+import { FormsModule } from '@angular/forms';
+import { ClosedComponent } from './closed/closed.component';
 
 
 @NgModule({
@@ -23,14 +25,17 @@ import { ExistingCustomerComponent } from './existing-customer/existing-customer
     StockdetailsComponent,
     AddNewCustomerComponent,
     CustomerComponent,
-    ExistingCustomerComponent
+    ExistingCustomerComponent,
+    ClosedComponent,
   ],
   imports: [
     CommonModule,
     BillCategoryRoutingModule,
     AngularMaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule
   ], 
-  exports: [TodaysBillsComponent]
+  exports: [TodaysBillsComponent],
+  
 })
 export class BillCategoryModule { }

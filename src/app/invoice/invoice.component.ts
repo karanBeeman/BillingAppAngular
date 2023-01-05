@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { InvoiceproductComponent } from '../invoiceproduct/invoiceproduct.component';
 import { LinksComponent } from '../links/links.component';
@@ -18,7 +19,7 @@ export class InvoiceComponent implements OnInit {
   deviceXs!: boolean;
   toggleActive = false;
   @ViewChild('invoiceProduct') invoiceProductCmpnt: InvoiceproductComponent
-  constructor(private mediaObserver:MediaObserver, private invoiceBillService: InoviceBillService ) { }
+  constructor(private mediaObserver:MediaObserver, private invoiceBillService: InoviceBillService, private route: Router ) { }
 
   ngOnInit(): void {
 
@@ -39,10 +40,11 @@ export class InvoiceComponent implements OnInit {
     //this.sidenav.toggle();
   }
 
-  onSubmit(isValid){
+  stockUpdateValues(isValid){
     if(isValid){
       console.log(this.invoiceProductCmpnt.ProductData);
-       this.invoiceBillService.postStockDetails(this.invoiceProductCmpnt.ProductData).subscribe(res => res);
+       this.invoiceBillService.postStockDetails(this.invoiceProductCmpnt.ProductData);
+       this.route.navigateByUrl('/invoice');
     }
     
   }

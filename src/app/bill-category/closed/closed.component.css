@@ -20,7 +20,7 @@
   
   .mat-table {
     display: block;
-    width: 70%;
+    width: 50%;
   }
   
   @media only screen and (max-width: 900px) {
@@ -31,18 +31,13 @@
       padding-left: 0px;
   }
   }
-
-  .right-container {
-    height: 100%;
-  }
   
-  .pending-bills {
-    margin-top: 10em;
+  .closed-bills {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: 2em;
     align-items: center;
-    
   }
   
   .expansionItems {
@@ -53,50 +48,10 @@
     margin-top: 1em;
     width: 50%;
   }
-
-  .table {
-    width: 100%;
-  }
   
   .heading {
     font-size: larger;
     font-weight: bold;
     margin-bottom: 2em;
   }
-
-  .example-container {
-    /* width: 500px; */
-     height: 700px;
-    background-color: white;
-    /* border: 1px solid rgba(0, 0, 0, 0.5); */
-  }
-  
-  /* .example-sidenav-content {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-  } */
-  
-  .example-sidenav {
-  
-    padding: 20px;
-    width: 100%;
-  }
-
-  .fullContianer {
-    display: grid;
-     grid-template-columns: 1fr 1.5fr; 
-     justify-content: center;
-     align-items: center;
-  }
-.mat-drawer .mat-drawer-inner-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-.dateAmountUpdate {
-   margin-top: 2em;
-}  
+    

@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -46,6 +44,8 @@ export class InvoiceformComponent implements OnInit, OnChanges {
   totalamount: any;
   invoiceNumber: any;
   quantityV : any;
+  selectDate : Date;
+  responseValue : any;
 
   @Input() set recievedProduct(prod: any) {
     console.log(prod);
@@ -54,7 +54,7 @@ export class InvoiceformComponent implements OnInit, OnChanges {
     }
   }
 
-  @Output() submit = new EventEmitter<any>();
+  @Output() submitStockValue = new EventEmitter<any>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('pdfTable') pdfTable!: ElementRef;
 
@@ -64,18 +64,13 @@ export class InvoiceformComponent implements OnInit, OnChanges {
     private _formBuilder: FormBuilder,
     private invoice: InvoiceDataService,
     private invoiceBillService: InoviceBillService,
-    private cdref: ChangeDetectorRef
   ) {}
   hotelDetails: FormGroup = new FormGroup({
     details: new FormControl(''),
   });
 
-  dateDetails: FormGroup = new FormGroup({
-    date: new FormControl(''),
-  });
-
   ngOnInit(): void {
-
+    console.log('sel', this.selectDate)
     this.invoiceBillService.getInvoiceNumber().subscribe(invoiceNumber => {
       this.invoiceNumber = invoiceNumber;
     })
@@ -113,31 +108,38 @@ export class InvoiceformComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
+    console.log('sel', this.selectDate)
     const hotelDetails = this.hotelDetails.controls['details'].value;
-    const dateDetails = this.dateDetails.value;
     const productDetails = this.productForm.controls['productDetails'].value;
     let flag =false;
     let qtyPrice = false;
-    if(hotelDetails!='' && dateDetails.date!= '' && this.invoiceNumber!= '') {
+    let invoiceData = {}; 
+    if(hotelDetails!='' && this.invoiceNumber!= '') {
       for(let i=0; i< productDetails.length; i++) {
         if(productDetails[i].quantity== '' || productDetails[i].price == '')  {
          qtyPrice = true;
           break;
          } 
       } if(!qtyPrice) {
-        const invoiceData = {
-          invoiceNumber: this.invoiceNumber,
-          hotelDetails: hotelDetails,
-          date: dateDetails.date,
-          productDetailList: productDetails,
+        invoiceData = {
+          "invoiceNumber": this.invoiceNumber,
+          "hotelDetails": hotelDetails,
+          "date": this.selectDate.toLocaleDateString(),
+          "productDetailList": productDetails,
         };
-        flag = true;
-        this.submit.emit(flag);
-        this.httpClient
-        .post('http://localhost:8080/invoiceData', invoiceData)
-        .subscribe((res) => {
-          console.log(res);
-        });
+       console.log('invoiceform data', invoiceData)
+       this.invoiceBillService.saveInvoiceData(invoiceData).subscribe( result => {
+          if(result) {
+           this.invoiceBillService.savePendingBills(result).subscribe(getResult => {
+            if(getResult) {
+              alert('successfully saved invoice bills')
+              this.submitStockValue.emit(true);
+            }
+           }) 
+          
+          }
+       });
+       //this.submitStockValue.emit(true);
       } else {
         alert('quantity or price cannot be empty');
       } 
@@ -226,3 +228,4 @@ export class InvoiceformComponent implements OnInit, OnChanges {
 
 }
 }
+

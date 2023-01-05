@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { EdittodaybillsComponent } from 'src/app/shared/edittodaybills/edittodaybills.component';
+import { InoviceBillService } from 'src/app/shared/inovice-bill.service';
 
 @Component({
   selector: 'app-todays-bills',
@@ -14,22 +15,13 @@ export class TodaysBillsComponent implements OnInit {
 
   displayedRows: any;
   totalamount: number;
-  constructor(private httpClient: HttpClient, private dialog : MatDialog) { }
+  constructor(private httpClient: HttpClient, private dialog : MatDialog, private invoiceBillService : InoviceBillService) { }
 
   ngOnInit(): void {
-  this.httpClient.get('http://localhost:8080/currentDateBills').subscribe((res : any) => {
-    const rows = res;
-    this.displayedRows = rows;
-    this.totalamount = 0;
-    console.log("displayed Rows" , this.displayedRows);
-    // this.displayedRows.forEach(productDetails => {
-    //       productDetails.productDetailList.forEach(amount =>{
-    //         this.totalamount = this.totalamount + amount.value;
-    //         console.log('tot', this.totalamount);
-    //       });
-        
-    // });
-  });
+   this.invoiceBillService.getTodayDateBills().subscribe(res => {
+    console.log('todays bill', res);
+    this.displayedRows = res;
+   });
  
 }
 

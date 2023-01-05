@@ -89,9 +89,7 @@ updateStock() {
     return {productName: formGrp.value.productName, stock: formGrp.value.stock}
   })
   console.log(stockDetails)
- this.invoiceBillService.postStockDetails(stockDetails).subscribe(res => {
-   
-  console.log("update stock component : ", res);});
+ this.invoiceBillService.postStockDetails(stockDetails);
 }
 
 removeStock(stockForm: any, i: any) {

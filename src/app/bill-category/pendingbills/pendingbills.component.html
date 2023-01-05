@@ -1,0 +1,94 @@
+<div class="fullContianer">
+    <div class="left-Container">
+        <mat-drawer-container class="example-container">
+            <mat-drawer #drawer class="example-sidenav" mode="side" >
+                <div>
+                    <pre class="heading">update bill amount</pre>
+                </div>
+                <div>
+                  <label> Invoice No : </label>
+                  <b>{{invoiceNumber}}</b> 
+                </div>
+                <br>
+                <table class="table">
+                    <tr>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Recieved Amount</th>
+                        <th>Total amount</th>
+                      </tr>  
+                      <tr *ngFor="let info of pendingBill">
+                        <!-- <th>{{info.key}}</th> -->
+                        <td>{{info.customerName}}</td>
+                        <td>{{info.date}}</td>
+                        <td>{{info.receivedAmount}}</td>
+                        <td>{{info.totalAmount}}</td>  
+                       
+                      </tr>
+                </table>
+                <div class="dateAmountUpdate">
+                  <label> Date : </label>
+                  <input [matDatepicker]="picker" [(ngModel)]="selectedDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </div>
+                <div>
+                  <label> recievedAmount : </label>
+                  <input type="text" [(ngModel)]="receiveAmount" required>
+                </div>
+
+                <div style="margin-top: 1em;">
+                 <button mat-raised-button color="primary" style="float: right;" (click)="updateBill()"> update bill</button>
+                 <button mat-raised-button color="primary" style="float: right;" (click)="openConfirmationDialog()"> close bill</button>
+                </div>
+            </mat-drawer>
+          
+          </mat-drawer-container>
+    </div>
+    <div class="right-container">
+      <div style="float: right; margin: 2em;">
+        <mat-icon>search</mat-icon>
+        
+        
+        <input [matDatepicker]="pick" (dateChange)="retrieveSelectedDateData($event)">
+                      <mat-datepicker-toggle matSuffix [for]="pick"></mat-datepicker-toggle>
+                      <mat-datepicker #pick></mat-datepicker>
+                   
+       </div>
+<div class="pending-bills">
+  
+    <div>
+        <pre class="heading"> Pending bills</pre>
+    </div>
+    <mat-accordion displayMode="flat" multi class="mat-table">
+          <mat-expansion-panel *ngFor="let item of displayedRows let i = index">
+            <mat-expansion-panel-header class="mat-row" (click)="drawer.toggle(false)">
+              <span class="mat-cell"><b>{{item.hotelDetails.customerName}}</b></span>
+              <span class="mat-cell">Date : {{item.date}}</span>
+              <span class="mat-cell">IN : {{item.invoiceNumber}}</span>
+            </mat-expansion-panel-header>
+            <table class="table-align">
+              <tr>
+                <th>Product</th>
+                <th>quantity</th>
+                <th>price</th>
+                <th>amount</th>
+              </tr>
+              <tr *ngFor="let productDetails of item.productDetailList" >
+                <td>{{productDetails.productName}}</td>
+                <td>{{productDetails.quantity}}</td>
+                <td>{{productDetails.price}}</td>
+                <td>{{productDetails.amount}}</td>
+              </tr>
+            </table>
+            <mat-action-row >
+                <mat-icon class="expansionItems" color="accent" matTooltip="info" (click)="drawer.toggle()"
+                (click)="getPendingList(item.invoiceNumber)">info</mat-icon>
+            </mat-action-row>
+           
+          </mat-expansion-panel>
+    </mat-accordion>
+    
+    </div>
+</div>
+</div>

@@ -1,0 +1,34 @@
+<div class="closed-bills">
+    <div>
+        <pre class="heading"> Closed bills</pre>
+    </div>
+    <mat-accordion displayMode="flat" multi class="mat-table">
+          <mat-expansion-panel *ngFor="let item of displayedRows let i = index" >
+            <mat-expansion-panel-header class="mat-row">
+              <span class="mat-cell"><b>{{item.hotelDetails.customerName}}</b></span>
+              <span class="mat-cell">invoice : {{item.invoiceNumber}}</span>
+              <span class="mat-cell">Date : {{item.date}}</span>
+            </mat-expansion-panel-header>
+            <table class="table-align">
+              <tr>
+                <th>Product</th>
+                <th>quantity</th>
+                <th>price</th>
+                <th>amount</th>
+              </tr>
+              <tr *ngFor="let productDetails of item.productDetailList" >
+                <td>{{productDetails.productName}}</td>
+                <td>{{productDetails.quantity}}</td>
+                <td>{{productDetails.price}}</td>
+                <td>{{productDetails.amount}}</td>
+              </tr>
+            </table>   
+          </mat-expansion-panel>
+    </mat-accordion>
+    </div>
+  
+  
+      
+        
+     
+  

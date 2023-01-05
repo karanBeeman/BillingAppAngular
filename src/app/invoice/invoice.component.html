@@ -42,7 +42,7 @@
                         </div>
                         <div class="invoiceBills">
                          <div class="rigthColumn">
-                            <app-invoiceform [recievedProduct] = "product" (submit)="onSubmit($event)"></app-invoiceform>
+                            <app-invoiceform [recievedProduct] = "product" (submitStockValue)="stockUpdateValues($event)"></app-invoiceform>
                         </div>
                     </div>
             </div>

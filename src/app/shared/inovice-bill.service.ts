@@ -1,25 +1,92 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, map, Observable, of, switchMap, toArray } from 'rxjs';
+import { Router } from '@angular/router';
+import { catchError, from, map, Observable, of, switchMap, toArray } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InoviceBillService {
   
+ 
+    
   stockObject : any;
+
+  constructor(private httpClient: HttpClient, private router: Router) { }
+
+
+  saveInvoiceData(invoice: any) {
+   return this.httpClient
+    .post('http://localhost:8080/invoice', invoice).pipe(
+      map((response) => {
+         return response;
+      } ),catchError((error : any) => {
+          alert(error.error);
+        return error
+      })
+    )
+  }
+
+  updateInvoiceBill(invoiceData: any) {
+    return this.httpClient
+    .put('http://localhost:8080/update/invoice', invoiceData).pipe(
+      map((response) => {
+         return response;
+      } ),catchError((error : any) => {
+          alert(error.error);
+        return error
+      })
+    )
+  }
+  
+
+  savePendingBills(input: any) {
+    return this.httpClient.post('http://localhost:8080/save/pendingBills', input).pipe(
+      map((response: any) => {
+        return response;
+      }), catchError((error: any) => {
+        alert(error.error);
+        return error
+      })
+     )
+  }
+
+  updatePenidngBills(pendingbill: {}) {
+    return this.httpClient.post('http://localhost:8080/update/pendingbills', pendingbill).pipe(
+      map((response : any) => {
+        alert('updated successfully')
+        return response;
+      }), catchError((error : any) => {
+        alert('not updated Successfully')
+        return error;
+      })
+    )
+  }
+
+  ModifyPendingBills(modifyBill: any) {
+    return this.httpClient.put('http://localhost:8080/modify/pendingbills', modifyBill).pipe(
+      map((response : any) => {
+        alert('updated successfully')
+        return response;
+      }), catchError((error : any) => {
+        alert('not updated Successfully')
+        return error;
+      })
+    )
+  }
+  
 
    saveCusotmerDetails(customerDetails: any) :  Observable<any> {
     return this.httpClient.post('http://localhost:8080/save/cusotmerdetails', customerDetails).pipe(map(res=> res));
   } 
 
-  postStockDetails(stockForm: any) :  Observable<any> {
+  postStockDetails(stockForm: any){
    this.stockObject = stockForm;
-    console.log("salkdfjlkasjfd", this.stockObject)
-    return this.httpClient.post('http://localhost:8080/stockdetails/save', this.stockObject).pipe(map(res => res));
+    this.httpClient.post<string>('http://localhost:8080/stockdetails/save', this.stockObject).subscribe(stockResponse => {
+       console.log('stockReponse ',stockResponse)
+    });
+  
   }
-
-  constructor(private httpClient: HttpClient) { }
 
   public getProduct() : Observable<any> {
      return this.httpClient.get('http://localhost:8080/ProductList').pipe(
@@ -46,10 +113,35 @@ deleteExistingCUstomer(customer: any) : Observable<any>{
 
 getInvoiceNumber() {
  return this.httpClient.get('http://localhost:8080/getInvoicenumber',{responseType: 'text'}).pipe(
-  map(response => 
-    
-    response));
-  
+  map(response =>  response));
+}
+
+getTodayDateBills() {
+  return this.httpClient.get('http://localhost:8080/currentDateBills');
+}
+
+getAllBills() {
+  return this.httpClient.get('http://localhost:8080/getAllBills');
+}
+
+pendingBillInfo(invoiceNumber: any) {
+  const params = new HttpParams().set('invoiceNumber', invoiceNumber);
+  return this.httpClient.get('http://localhost:8080/getpendingbills', {params});
+}
+
+retrieveSelectedDateBills(date : any) {
+  console.log(date);
+const params = new HttpParams().set('date', date.value);
+ return this.httpClient.get('http://localhost:8080/getpendingBills/date', {params});
+
+}
+
+saveToClosedBills(element: any) {
+   this.httpClient.post('http://localhost:8080/save/closedbill', element).subscribe(result => result);
+}
+
+getClosedBills() {
+  return this.httpClient.get('http://localhost:8080/get/closedbills');
 }
 
 }

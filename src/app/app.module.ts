@@ -15,6 +15,8 @@ import { InvoiceDataService } from './shared/invoice-data.service';
 import { BillCategoryModule } from './bill-category/bill-category.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EdittodaybillsComponent } from './shared/edittodaybills/edittodaybills.component';
+import { FormsModule } from '@angular/forms';
+import { ConfirmationDialogComponentComponent } from './shared/confirmation-dialog-component/confirmation-dialog-component.component';
 
 
 
@@ -25,7 +27,8 @@ import { EdittodaybillsComponent } from './shared/edittodaybills/edittodaybills.
     InvoiceformComponent,
     InvoiceproductComponent,
     LinksComponent,
-    EdittodaybillsComponent
+    EdittodaybillsComponent,
+    ConfirmationDialogComponentComponent
     
   ],
   imports: [
@@ -35,7 +38,8 @@ import { EdittodaybillsComponent } from './shared/edittodaybills/edittodaybills.
     HttpClientModule,
     BrowserAnimationsModule,
     BillCategoryModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule
   ],
   providers: [InvoiceDataService],
   bootstrap: [AppComponent]

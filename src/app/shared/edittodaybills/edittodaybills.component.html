@@ -6,7 +6,45 @@
 <form (ngSubmit)="printEditedProductList()" [formGroup]="productForm" id="productForm" autocomplete="off" >
     <ng-container formArrayName="productDetails">
         <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="Product">
+          <ng-container matColumnDef="Product">
+            <th mat-header-cell *matHeaderCellDef> Product </th>
+            <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
+              <mat-form-field>
+                <mat-select formControlName="productName">
+                  <mat-option *ngFor="let prod of productList" [value]="prod.productName">
+                    {{prod.productName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="qty">
+            <th mat-header-cell *matHeaderCellDef> qty </th>
+            <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
+              <mat-form-field>
+                <input matInput type="text" formControlName="quantity" (change)="quantityUpdate( productForm, i)">
+              </mat-form-field>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> price </th>
+            <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
+              <mat-form-field>
+                <input matInput type="text" formControlName="price" (change)="onPriceChange(productForm, i)">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef> amount </th>
+            <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
+              <mat-form-field>
+                <input matInput type="text" formControlName="amount" [readonly]="true">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+            <!-- <ng-container matColumnDef="Product">
                 <th mat-header-cell *matHeaderCellDef> Product </th>
                 <td mat-cell *matCellDef="let element let i = index" [formGroup]="element">
                   <mat-form-field *ngIf="!productForm.get('productDetails')?.value[i].isEditable" class="without-Edit">
@@ -49,11 +87,11 @@
                     <input matInput type="text" formControlName="amount" [readonly]="true">
                   </mat-form-field>
                 </td>
-              </ng-container>
+              </ng-container> -->
               <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Action </th> 
                <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
-                <button mat-icon-button class="material-icons app-toolbar-menu save-button" 
+                <!-- <button mat-icon-button class="material-icons app-toolbar-menu save-button" 
                                     *ngIf="productForm.get('productDetails')?.value[i].isEditable" color="primary"
                                     (click)="includeProductToList(productForm, i)">
                                     <mat-icon>check_circle</mat-icon>
@@ -63,17 +101,21 @@
                                
                                *ngIf="productForm.get('productDetails')?.value[i].isEditable">
                                <mat-icon>cancel</mat-icon>
-            </button>                
-                <button mat-icon-button class="material-icons app-toolbar-menu save-button"
+            </button>                 -->
+                <!-- <button mat-icon-button class="material-icons app-toolbar-menu save-button"
                 *ngIf="!productForm.get('productDetails')?.value[i].isEditable"
                             color="primary"  (click)="editProductList(productForm,i)">
                             <mat-icon>edit</mat-icon>
-                 </button>    
-                 <button mat-icon-button class="material-icons app-toolbar-menu delete-button"
+                 </button>     -->
+                 <!-- <button mat-icon-button class="material-icons app-toolbar-menu delete-button"
                  *ngIf="!productForm.get('productDetails')?.value[i].isEditable"
                                           color="warn" (click)="removeRow(i)">
                                          <mat-icon>delete</mat-icon>
-                    </button>            
+                    </button>             -->
+                    <button mat-icon-button class="material-icons app-toolbar-menu delete-button"
+                                             color="warn" (click)="removeRow(i)">
+                                            <mat-icon>delete</mat-icon>
+                       </button>  
                </td>
              </ng-container>
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
