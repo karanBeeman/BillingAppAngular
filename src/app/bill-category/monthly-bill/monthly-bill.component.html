@@ -1,0 +1,42 @@
+<div class="pending-bills">
+    <div>
+        <pre class="heading"> Monthly bills</pre>
+    </div>
+    <div  class="dateAndDown">
+   <div style="margin-right:1em;">
+      <mat-icon (click)="generateExcel()" matTooltip="Download Bills">download</mat-icon>
+    </div>
+    <div style="margin-right:1em;">
+      <label><b>Total Amount : Rs</b></label>
+      {{totalAmount}} 
+    </div>
+    <div>
+      <mat-form-field class="datePicker" appearance="fill" >
+        <mat-label>Month and Year</mat-label>
+        <input matInput [matDatepicker]="dp" [(ngModel)]="selectedMonth">
+        <mat-datepicker #dp
+        startView="multi-year"
+        (monthSelected)="setMonthAndYear($event, dp)"
+        panelClass="example-month-picker">
+       </mat-datepicker>
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      </mat-form-field>
+    </div>
+  </div> 
+    <mat-accordion displayMode="flat" multi class="mat-table">
+          <mat-expansion-panel *ngFor="let item of displayedRows let i = index" >
+            <mat-expansion-panel-header class="mat-row">
+              <span class="mat-cell"><b>{{item.hotelDetails.customerName}}</b></span>
+              <span class="mat-cell">invoice : {{item.invoiceNumber}}</span>
+              <span class="mat-cell">Date : {{item.date}}</span>
+              <span class="mat-cell">Amount : {{item.totalAmount}}</span>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+    </mat-accordion>
+</div>
+  
+  
+      
+        
+     
+  

@@ -15,7 +15,7 @@ export class TodaysBillsComponent implements OnInit {
 
   displayedRows: any;
   totalamount: number;
-  constructor(private httpClient: HttpClient, private dialog : MatDialog, private invoiceBillService : InoviceBillService) { }
+  constructor(private dialog : MatDialog, private invoiceBillService : InoviceBillService) { }
 
   ngOnInit(): void {
    this.invoiceBillService.getTodayDateBills().subscribe(res => {

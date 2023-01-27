@@ -21,7 +21,7 @@ export class ExistingCustomerComponent implements OnInit {
   deleteExistingCustomer(customer: any) {
      console.log(customer, 'customer');
      this.invoiceBillservice.deleteExistingCUstomer(customer).subscribe(res => res);
-     this.router.navigateByUrl("customer");
+     this.router.navigateByUrl("/billcategory/customer");
   }
 
 }

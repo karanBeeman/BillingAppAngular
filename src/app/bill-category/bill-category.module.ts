@@ -14,6 +14,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { ExistingCustomerComponent } from './existing-customer/existing-customer.component';
 import { FormsModule } from '@angular/forms';
 import { ClosedComponent } from './closed/closed.component';
+import { MonthlyBillComponent } from './monthly-bill/monthly-bill.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { ClosedComponent } from './closed/closed.component';
     CustomerComponent,
     ExistingCustomerComponent,
     ClosedComponent,
+    MonthlyBillComponent,
   ],
   imports: [
     CommonModule,

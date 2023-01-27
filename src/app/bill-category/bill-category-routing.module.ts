@@ -4,6 +4,7 @@ import { AddNewCustomerComponent } from './add-new-customer/add-new-customer.com
 import { ClosedComponent } from './closed/closed.component';
 import { CustomerComponent } from './customer/customer.component';
 import { HomeComponent } from './home/home.component';
+import { MonthlyBillComponent } from './monthly-bill/monthly-bill.component';
 import { PendingbillsComponent } from './pendingbills/pendingbills.component';
 import { StockdetailsComponent } from './stockdetails/stockdetails.component';
 import { TodaysBillsComponent } from './todays-bills/todays-bills.component';
@@ -16,7 +17,8 @@ const routes: Routes = [
         {path:'pendingbills', component:PendingbillsComponent},
         {path:'stockdetails', component:StockdetailsComponent},
         {path:'customer', component:CustomerComponent},
-        {path:'closedbill', component:ClosedComponent}
+        {path:'closedbill', component:ClosedComponent},
+        {path:'monthlybill', component:MonthlyBillComponent}
      ]
 }
   

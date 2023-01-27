@@ -63,7 +63,7 @@ export class AddNewCustomerComponent implements OnInit {
     };
     console.log('customer data', customerData)
     this.InvoiceBillService.saveCusotmerDetails(customerData).subscribe(res => res);
-      this.router.navigateByUrl("customer");
+      this.router.navigateByUrl("[/customer]");
     
   }
 

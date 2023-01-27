@@ -2,18 +2,16 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, from, map, Observable, of, switchMap, toArray } from 'rxjs';
+import { __spreadArrays } from 'tslib';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InoviceBillService {
   
- 
-    
   stockObject : any;
 
   constructor(private httpClient: HttpClient, private router: Router) { }
-
 
   saveInvoiceData(invoice: any) {
    return this.httpClient
@@ -143,5 +141,19 @@ saveToClosedBills(element: any) {
 getClosedBills() {
   return this.httpClient.get('http://localhost:8080/get/closedbills');
 }
+
+getBillsBasedOnMonth(year : any, month: any) {
+   const monthValue = month + 1;
+  const params = {
+    year: year,
+    month: monthValue
+  };
+  console.log('params', params);
+  return this.httpClient.get('http://localhost:8080/get/monthlybill', {params});
+}
+
+generateExcel(displayedRows: any) {
+  return this.httpClient.post('http://localhost:8080/generate/excel', displayedRows);
+ }
 
 }

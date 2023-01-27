@@ -1,29 +1,22 @@
 <div class="link-container" *ngIf="!deviceXs; else listItems">
   <div class="column">
   <div class="smallBlocks" style="background-color: rgb(154, 224, 154);">
-    <a routerLink="/billcategory/customer">Add new customer</a> 
+    <a routerLink="/billcategory/customer">Add/Existing Customer</a> 
   </div>
   <div class="smallBlocks"  style="background-color: rgb(184, 209, 213);">
-    <a>purchase bills</a>
+    <a routerLink="/billcategory/monthlybill">Monthly Bills</a>
   </div>
   <div class="smallBlocks" style="background-color: rgb(194, 215, 149);">
-    <a routerLink="/billcategory/pendingbills">pending bills</a>
-  </div>
-  <div class="smallBlocks" style="background-color: rgb(225, 181, 127);">
-     <a>date wise bills</a>
-     
+    <a routerLink="/billcategory/pendingbills">Pending Bills</a>
   </div>
   <div class="smallBlocks" style="background-color: rgb(215, 134, 192);">
-     <a routerLink="/billcategory/stockdetails">stock details</a>
+     <a routerLink="/billcategory/stockdetails">Stock Details</a>
    </div>
    <div class="smallBlocks" style="background-color: rgb(227, 140, 169);">
-     <a routerLink="/billcategory/closedbill">closed bills</a>
+     <a routerLink="/billcategory/closedbill">Closed Bills</a>
    </div>
    <div class="smallBlocks" style="background-color: rgb(147, 155, 237);">
-     <a routerLink="/billcategory/todaybill">Today's bills</a>
-   </div>
-   <div class="smallBlocks" style="background-color: rgb(132, 224, 213);">
-     <a>update bills</a>
+     <a routerLink="/billcategory/todaybill">Today's Bills</a>
    </div>
 </div>
 </div>
@@ -31,7 +24,7 @@
   <mat-nav-list fxLayout="column">
     <a class="button" routerLink="/billcategory/todaybill"> todaybill </a>
     <a class="button" routerLink="/billcategory/stockdetails">stockdetails</a>
-    <a class="button" routerLink="/billcategory/customer">Add New Customer</a>
+    <a class="button" routerLink="/billcategory/customer">Add/Existing Customer</a>
     <a class="button" routerLink="/billcategory/pendingbills">update bills</a>
     <a class="button">update bills</a>
   </mat-nav-list>

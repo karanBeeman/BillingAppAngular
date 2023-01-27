@@ -111,10 +111,9 @@ export class InvoiceformComponent implements OnInit, OnChanges {
     console.log('sel', this.selectDate)
     const hotelDetails = this.hotelDetails.controls['details'].value;
     const productDetails = this.productForm.controls['productDetails'].value;
-    let flag =false;
     let qtyPrice = false;
     let invoiceData = {}; 
-    if(hotelDetails!='' && this.invoiceNumber!= '') {
+    if(hotelDetails!='' && this.invoiceNumber!= '' && this.selectDate!= null) {
       for(let i=0; i< productDetails.length; i++) {
         if(productDetails[i].quantity== '' || productDetails[i].price == '')  {
          qtyPrice = true;
@@ -139,7 +138,6 @@ export class InvoiceformComponent implements OnInit, OnChanges {
           
           }
        });
-       //this.submitStockValue.emit(true);
       } else {
         alert('quantity or price cannot be empty');
       } 
